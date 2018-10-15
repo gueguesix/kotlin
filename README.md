@@ -54,3 +54,4 @@ with the correct, meaningful code in order to solve the problem and allow the as
 ```kotlin
 fun task0() = "OK"
 ```
+# kotlin
