@@ -19,17 +19,20 @@ class N23CompoundTasksKtTest {
         assertEquals(reSharper, testShop.customers[0].getMostExpensiveDeliveredProduct())
     }
 
-    @Test fun testNumberOfTimesEachProductWasOrdered() {
-        assertEquals(4, shop.getNumberOfTimesProductWasOrdered(idea))
+    fun Shop.getCustomersWhoOrderedProduct(product: Product): Set<Customer> {
+        // Return the set of customers who ordered the specified product
+        return customers.filter { it.orderedProducts.contains(product) }.toSet()
     }
 
-    @Test fun testNumberOfTimesEachProductWasOrderedForRepeatedProduct() {
-        assertEquals("A customer may order a product for several times",
-                3, shop.getNumberOfTimesProductWasOrdered(reSharper))
+    fun Customer.getMostExpensiveDeliveredProduct(): Product? {
+        // Return the most expensive product among all delivered products
+        // (use the Order.isDelivered flag)
+        return orders.filter { it.isDelivered }.flatMap { it.products }.maxBy { it.price }
     }
 
-    @Test fun testNumberOfTimesEachProductWasOrderedForRepeatedInOrderProduct() {
-        assertEquals("An order may contain a particular product more than once",
-                3, shop.getNumberOfTimesProductWasOrdered(phpStorm))
+    fun Shop.getNumberOfTimesProductWasOrdered(product: Product): Int {
+        // Return the number of times the given product was ordered.
+        // Note: a customer may order the same product for several times.
+        return customers.flatMap { it.orders }.flatMap { it.products }.count { it == product }
     }
 }

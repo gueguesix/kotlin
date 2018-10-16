@@ -1,10 +1,13 @@
 package i_introduction._4_Lambdas
 
+import com.google.common.base.Predicate
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class N04LambdasKtTest {
+
+
     @Test fun contains() {
         assertTrue(task4(listOf(1, 2, 3)))
     }
